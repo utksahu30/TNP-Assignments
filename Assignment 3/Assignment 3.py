@@ -1,0 +1,200 @@
+import random
+from datetime import datetime
+students_data = [] #list storing all data
+FIELDS = ["Username", "Password", "Full Name", "Email",
+          "Phone Num","DOB", "Address",
+          "Course", "Enrollment Year", "Student ID"]
+
+logged_user = '' #global variable
+logged = False #global variable
+
+def register() :
+    print("\nNew Student Registration\n")
+    new_student = {} #studnet data dictionary
+
+    for field in FIELDS :
+        value = input(f"Enter {field} : ")
+        new_student[field] = value
+
+    for student in students_data: #if username already present
+        if student["Username"] == new_student["Username"]:
+            print("\nUsername not available")
+            return
+
+    students_data.append(new_student)
+    print("\nRegistration successful")
+
+def login():
+    global logged, logged_user #global needed to modify values
+    
+    print("\nStudent Login\n")
+    username = input("Enter username : ")
+    password = input("Enter password : ")
+
+    for student in students_data:
+        if student["Username"] == username and student["Password"] == password:
+            logged = True
+            logged_user = username
+            print(f"\nLogin successful, Welcome {username}")
+            return
+
+    print("\nError: Invalid username or password\n")
+
+def quiz():
+    if logged == False : 
+        print("\nPlease log in")
+        return
+
+    print("\nSELECT QUIZ CATEGORY")
+    print("1. DSA")
+    print("2. DBMS")
+    print("3. Python")
+    choice = input("Enter your choice (1/2/3): ").strip()
+
+    quiz_types = {
+        '1': ('DSA.txt', 'DSA'),
+        '2': ('DBMS.txt', 'DBMS'),
+        '3': ('PYTHON.txt', 'Python')
+    }
+
+    if choice not in quiz_types:
+        print("Invalid choice. Returning to main menu.")
+        return
+
+    filename, quiz_type = quiz_types[choice]
+
+    try:
+        with open(filename, 'r') as f:
+            content = f.read().strip()
+        
+        question_blocks = content.split('~~~~')
+        random.shuffle(question_blocks)#shuffle question list
+        score = 0
+        total = sum(1 for block in question_blocks if block.strip())
+        
+        for block in question_blocks:
+            lines = block.strip().split('\n')
+            if len(lines) < 3:
+                continue
+            question = lines[0].strip()
+            options = lines[1].strip()
+            correct = lines[2].strip().upper()
+            
+            print(f"\n{question}\n")
+            print(options)
+            answer = input("\n Your answer (A/B/C/D): ").strip().upper()
+            
+            if answer == correct:
+                score += 1
+                print("Correct!")
+            else:
+                print(f"Wrong! Correct is {correct}")
+
+        for student in students_data:
+            if student["Username"] == logged_user:
+                student_id = student.get("Student ID", "N/A") # Get Student ID
+                student[f"{quiz_type}_score"] = score # Save the score
+                break
+        
+        now = datetime.now()
+        dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+
+        # 3. Print details in the requested order
+        print(f"\n--- Quiz Summary ---")
+        print(f"Score: {score}")
+        print(f"Student ID: {student_id}")
+        print(f"Category: {quiz_type}")
+        print(f"Marks/Total Marks: {score}/{total}")
+        print(f"Date/Time: {dt_string}")
+        
+        print(f"\nYour {quiz_type} quiz score: {score}/{total}")
+        for student in students_data:
+            if student["Username"] == logged_user:
+                student[f"{quiz_type}_score"] = score
+            break
+        print("Score saved to your profile.")
+    
+    except FileNotFoundError:
+        print(f"Quiz file '{filename}' not found. Please ensure the file exists in the same directory.")
+    except Exception as e:
+        print(f"Error loading quiz: {e}")
+
+def show_profile():
+    if logged == False : #no need for global for accessing values
+        print("\nPlease log in")
+        return
+        
+    print(f"\nProfile details of {logged_user}\n")
+    for student in students_data:
+        if student["Username"] == logged_user:
+            for key, value in student.items():
+                if key == "Password" : #hide pass
+                    print("Password : ********")
+                else :
+                    print(f"{key}: {value}")
+            return
+
+def update_profile():
+    if logged == False :
+        print("\nPlease log in")
+        return
+        
+    print("\nUpdate Your Profile\n")
+    for student in students_data:
+        if student["Username"] == logged_user:
+            field_update = input("Enter Field to update : ")
+            
+            if field_update in student:
+                new_value = input(f"Enter new value for {field_update} : ")
+                student[field_update] = new_value
+                print("\nProfile updated\n")
+            else:
+                print("\nInvalid field\n")
+            return
+
+def logout():
+    global logged, logged_user
+    if logged == True :
+        print(f"{logged_user} is logged out")
+        logged = False
+        logged_user = ''
+    else:
+        print("You are not logged in")
+
+def terminate():
+    """Exits the program."""
+    print("Exiting program.")
+    exit()
+
+def clear_screen():
+    print("\n" * 40)
+
+def main(): 
+    while True: #program loop
+        print("\nWELCOME TO LNCT\n")
+        if logged == True :
+            print(f"(Logged in as: {logged_user})")
+        
+        response = input(
+            "OPTIONS\n\n"
+            "1 - Register\n"
+            "2 - Login\n"
+            "3 - Quiz\n"
+            "4 - Show Profile\n"
+            "5 - Update Profile\n"
+            "6 - Logout\n"
+            "7 - Exit\n"
+            "\nChoose option number: ")
+        clear_screen()
+        
+        if   response == '1': register()
+        elif response == '2': login()
+        elif response == '3': quiz()
+        elif response == '4': show_profile()
+        elif response == '5': update_profile()
+        elif response == '6': logout()
+        elif response == '7': terminate()
+        else:
+            print("Invalid Choice, please try again.")
+
+main()

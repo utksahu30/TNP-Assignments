@@ -1,0 +1,40 @@
+What data structure follows the Last-In, First-Out (LIFO) principle? 
+A. Queue B. Stack C. Array D. Linked List 
+B
+~~~~
+What data structure follows the First-In, First-Out (FIFO) principle?
+A. Queue B. Stack C. Graph D. Tree
+A
+~~~~
+What is the time complexity of accessing an element in an array by its index? 
+A. O(1) B. O(n) C. O(log n) D. O(n^2) 
+A
+~~~~
+Which data structure is generally more efficient for inserting or deleting elements in the middle?
+A. Array B. Linked List C. Stack D. Hash Table
+B
+~~~~
+Which sorting algorithm repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order? 
+A. Merge Sort B. Quick Sort C. Bubble Sort D. Insertion Sort 
+C
+~~~~
+What is a prerequisite for performing a binary search on a list?
+A. The list must be sorted B. The list must be unsorted C. The list must only contain positive numbers D. The list must be a linked list
+A
+~~~~
+What is the name of the top-most node in a tree data structure? 
+A. Leaf B. Parent C. Child D. Root 
+D
+~~~~
+In a hash table, what is it called when two different keys map to the same index?
+A. A collision B. A hash C. An error D. A join
+A
+~~~~
+What is a function that calls itself known as? 
+A. A loop B. A recursive function C. A binary function D. An iterative function 
+B
+~~~~
+In a graph, what connects two nodes (vertices)?
+A. A link B. A pointer C. An edge D. A path
+C
+~~~~

@@ -1,0 +1,40 @@
+What is the correct way to assign the integer value 5 to a variable named 'x' in Python? 
+A. int x = 5 B. x = 5 C. x := 5 D. let x = 5 
+B
+~~~~
+Which of the following data types is used to store a sequence of characters?
+A. Integer B. Float C. String D. Boolean
+C
+~~~~
+How do you create an empty list in Python? 
+A. list = () B. list = {} C. list = [] D. list = new List() 
+C
+~~~~
+Which keyword is used to define a function in Python?
+A. fun B. function C. def D. define
+D
+~~~~
+How do you write a single-line comment in Python? 
+A. // This is a comment B. /* This is a comment */ C. # This is a comment D. 
+C
+~~~~
+What does the '==' operator do in Python?
+A. Assigns a value B. Checks for equality (value) C. Checks for identity (memory location) D. Performs division
+B
+~~~~
+How do you access the first element of a list named 'my_list'? 
+A. my_list[1] B. my_list.first() C. my_list(0) D. my_list[0] 
+D
+~~~~
+What are the two primary Boolean values in Python?
+A. Yes / No B. 1 / 0 C. True / False D. T / F
+C
+~~~~
+Which function is used to get user input from the console? 
+A. get_input() B. read() C. input() D. console.log() 
+C
+~~~~
+Which data structure stores key-value pairs?
+A. List B. Tuple C. Set D. Dictionary
+D
+~~~~
