@@ -1,2 +1,2 @@
-# T-P-Assignments
-Assinments and solutions for T&amp;P
+# TNP-Assignments
+Assinments and solutions for TNP
